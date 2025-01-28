@@ -12,7 +12,7 @@ export const connect = async () => {
         const options = {
             dbName: 'next-blog',
             useNewUrlParser: true,
-            useUnifiedTopology: true,
+            // useUnifiedTopology: true,
         };
 
         await mongoose.connect(process.env.MONGO_URI as string, options);
