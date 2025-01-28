@@ -9,13 +9,13 @@ export const connect = async () => {
         return;
     }
     try{
-        const options = {
+        if (!process.env.MONGO_URI) {
+            throw new Error('MONGO_URI is not defined in the environment variables.');
+          }
+          
+        await mongoose.connect(process.env.MONGO_URI || '', {
             dbName: 'next-blog',
-            useNewUrlParser: true,
-            // useUnifiedTopology: true,
-        };
-
-        await mongoose.connect(process.env.MONGO_URI as string, options);
+            });
 
         console.log('Connect to MongoDB');
         initialized=true;
