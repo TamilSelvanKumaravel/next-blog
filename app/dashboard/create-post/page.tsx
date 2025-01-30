@@ -39,16 +39,16 @@ export default function CreatePostPage() {
       }
       setImageUploadError(null);
 
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!); // Replace with your Cloudinary preset
-      formData.append('cloud_name', process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!); // Replace with your Cloudinary cloud name
+      const imageData = new FormData();
+      imageData.append('file', file);
+      imageData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!); // Replace with your Cloudinary preset
+      // formData.append('cloud_name', process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!); // Replace with your Cloudinary cloud name
 
       const res = await fetch(
         `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
         {
           method: 'POST',
-          body: formData,
+          body: imageData,
         }
       );
 
@@ -57,7 +57,7 @@ export default function CreatePostPage() {
       if (data.secure_url) {
         setImageUploadProgress(null);
         setImageUploadError(null);
-        setFormData({ ...formData, image: data.secure_url });
+        setFormData((prev)=>({ ...prev, image: data.secure_url }));
       } else {
         setImageUploadError('Image upload failed');
         setImageUploadProgress(null);
@@ -113,12 +113,12 @@ export default function CreatePostPage() {
         <form className='flex flex-col gap-4' onSubmit={handleSubmit}>          
           <div className='flex flex-col gap-4 sm:flex-row justify-between'>
             <TextInput type='text' placeholder='Title' required id='title' className='flex-1'  onChange={(e) =>
-                setFormData({ ...formData, title: e.target.value })
+                setFormData((prev)=>({ ...prev, title: e.target.value }))
               }
             />
             <Select
               onChange={(e) =>
-                setFormData({ ...formData, category: e.target.value })
+                setFormData((prev)=>({ ...prev, category: e.target.value }))
               }
             > <option value='uncategorized'>Select a category</option>
               <option value='javascript'>JavaScript</option>
@@ -145,7 +145,7 @@ export default function CreatePostPage() {
           {formData.image && <img src={formData.image} alt='upload' className='w-full h-72 object-cover' />}
 
           <ReactQuill theme='snow' placeholder='Write something...' className='h-72 mb-12' onChange={(value) => {
-              setFormData({ ...formData, content: value });
+              setFormData((prev)=>({ ...prev, content: value }));
             }}/>
           <Button type='submit' gradientDuoTone='purpleToPink'>Publish</Button>
         </form>
