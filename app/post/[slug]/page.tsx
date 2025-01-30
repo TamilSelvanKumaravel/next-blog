@@ -122,14 +122,13 @@ interface Post {
   createdAt?: string;
 }
 
-interface PostPageProps {
-  params: { slug: string };
-}
 
-export default async function PostPage({ params }: PostPageProps) {
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   // Directly use params, no need for awaiting
-  const { slug } = params;
-
+  console.log('params',params)
+  const { slug } = await params;
+  console.log('slug',slug)
+  console.log('type of slug',typeof slug)
   if (!slug) {
     return (
       <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
