@@ -113,6 +113,7 @@ import CallToAction from '@/app/components/CallToAction';
 import { Button } from 'flowbite-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import RecentPosts from '@/app/components/RecentPosts';
 
 interface Post {
   title: string;
@@ -214,6 +215,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <div className="max-w-4xl mx-auto w-full">
         <CallToAction />
       </div>
+      <RecentPosts limit={3}/>
     </main>
   );
 }
