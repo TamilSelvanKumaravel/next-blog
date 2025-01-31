@@ -34,7 +34,7 @@ export default function Header() {
       setSearchTerm(searchTermFromUrl);
     }
   },[searchParams]);
-  
+
 console.log('searchTerm',searchTerm)
   return (
     <Navbar className="border-b-2">
@@ -74,7 +74,7 @@ console.log('searchTerm',searchTerm)
             appearance={{
               baseTheme: theme === "light" ? neobrutalism : dark,
             }}
-            // userProfileUrl='/dashboard?tab=profile'
+            userProfileUrl='/dashboard?tab=profile'
           />
         </SignedIn>
         <SignedOut>
