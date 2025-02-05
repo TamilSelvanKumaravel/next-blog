@@ -60,6 +60,17 @@ export default function DashSidebar() {
             </Sidebar.Item>
           </Link>
           {isAdmin && (
+            <Link href='/dashboard/create-post'>
+              <Sidebar.Item
+                active={tab === 'posts'}
+                icon={HiDocumentText}
+                as='div'
+              >
+                Create Posts
+              </Sidebar.Item>
+            </Link>
+          )}
+          {isAdmin && (
             <Link href='/dashboard?tab=posts'>
               <Sidebar.Item
                 active={tab === 'posts'}
